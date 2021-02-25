@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useTranslation } from "react-i18next";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ButtonGoUp from "./components/ButtonGoUp";
+import NavBar from "./components/NavBar";
+import Dashboard from "./containers/Dashboard";
+import HomePage from "./containers/HomePage";
+import Footer  from "./components/Footer";
 
 function App() {
+  const { t, i18n } = useTranslation();
+  document.body.dir = i18n.dir();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <ButtonGoUp />
+        <NavBar />
+        <Switch>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+        {/* <Footer /> */}
+      </Router>
     </div>
   );
 }
