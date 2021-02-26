@@ -4,7 +4,10 @@ import ButtonGoUp from "./components/ButtonGoUp";
 import NavBar from "./components/NavBar";
 import Dashboard from "./containers/Dashboard";
 import HomePage from "./containers/HomePage";
-import Footer  from "./components/Footer";
+import ContactUs from "./containers/ContactUs";
+import SentMessagePage from "./containers/SentMessagePage";
+import Footer from "./components/Footer";
+import SearchPage from "./containers/SearchPage";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -15,8 +18,17 @@ function App() {
         <ButtonGoUp />
         <NavBar />
         <Switch>
+          <Route exact path="/contact">
+            <ContactUs />
+          </Route>
+          <Route path="/contact/sent">
+            <SentMessagePage />
+          </Route>
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/search/:selector=:id">
+            <SearchPage />
           </Route>
           <Route path="/">
             <HomePage />

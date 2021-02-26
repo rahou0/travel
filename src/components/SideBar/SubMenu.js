@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Marginer } from "../../components/marginer";
 
 const SideBarLink = styled(Link)`
   display: flex;

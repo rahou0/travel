@@ -5,8 +5,6 @@ import { HiHome } from "react-icons/hi";
 import {
   RiLoginBoxFill,
   RiLogoutBoxFill,
-  RiArrowUpSFill,
-  RiArrowDownSFill,
 } from "react-icons/ri";
 import { MdContacts } from "react-icons/md";
 import { SiAboutDotMe } from "react-icons/si";

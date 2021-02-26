@@ -54,8 +54,8 @@ const RightSearchContainer = styled.div`
 `;
 const SearchIcon = styled(FaSearch)`
   color: white;
-  height: ${({ size }) => size+"px"};
-  width: ${({ size }) => size+"px"};
+  height: ${({ size }) => size + "px"};
+  width: ${({ size }) => size + "px"};
 `;
 const SeparatorSearchContainer = styled.div`
   min-width: 3px;
@@ -110,8 +110,8 @@ function SearchBar(props) {
           <option value="city">Search by City</option>
         </select>
       </RightSearchContainer>
-      <SearchToggle>
-        <SearchIcon size={isMobile?15:25} />
+      <SearchToggle onClick={handleClick}>
+        <SearchIcon size={isMobile ? 15 : 25} />
       </SearchToggle>
     </SearchContainer>
   );

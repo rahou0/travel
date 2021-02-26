@@ -12,7 +12,7 @@ const ButtonWrapper = styled(motion.div)`
   font-size: ${({ font }) => (font ? font + "px" : "17px")};
   font-weight: ${({ weight }) => (weight ? weight : "500")};
   background-color: ${({ color }) => (color ? "#" + color : "#59ff52")};
-  width: ${({ width }) => (width ? width  : "100px")};
+  width: ${({ width }) => (width ? width : "100px")};
 
   box-shadow: ${({ shadow }) => (shadow ? shadow : "")};
   margin: ${({ margin }) => (margin ? margin : "px")};
@@ -33,12 +33,14 @@ function Button(props) {
     margin,
     init,
     shadow,
+    onClick,
     color,
     trans,
     textColor,
   } = props;
   return (
     <ButtonWrapper
+      onClick={onClick}
       padding={padding}
       width={width}
       weight={weight}

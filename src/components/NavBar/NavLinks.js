@@ -51,16 +51,13 @@ function NavLinks() {
           <LinkName to="/#">{t("home")}</LinkName>
         </LinkItem>
         <LinkItem>
-          <LinkName to="/#about">{t("about")}</LinkName>
+          <LinkName to="/contribute">{t("contribute")}</LinkName>
         </LinkItem>
         <LinkItem>
-          <LinkName to="/#portfolio">{t("portfolio")}</LinkName>
+          <LinkName to="/faq">{t("faq")}</LinkName>
         </LinkItem>
         <LinkItem>
-          <LinkName to="/#blog">{t("blog")}</LinkName>
-        </LinkItem>
-        <LinkItem>
-          <LinkName to="/#contact">{t("contact")}</LinkName>
+          <LinkName to="/contact">{t("contact")}</LinkName>
         </LinkItem>
       </LinkWrapper>
     </NavLinksContainer>
