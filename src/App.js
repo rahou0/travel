@@ -8,6 +8,7 @@ import ContactUs from "./containers/ContactUs";
 import SentMessagePage from "./containers/SentMessagePage";
 import Footer from "./components/Footer";
 import SearchPage from "./containers/SearchPage";
+import ContentPage from "./containers/ContentPage";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -30,11 +31,14 @@ function App() {
           <Route path="/search/:selector=:id">
             <SearchPage />
           </Route>
+          <Route path="/place/:id">
+            <ContentPage />
+          </Route>
           <Route path="/">
             <HomePage />
           </Route>
         </Switch>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </div>
   );

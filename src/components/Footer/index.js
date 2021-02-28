@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import ImageOfBrand from "../../ressources/disney.png";
-
+import { useMediaQuery } from "react-responsive";
+import { deviceSize } from "../responsive";
 const FooterContainer = styled.div`
   display: flex;
   width: 100%;
@@ -15,12 +16,13 @@ const TopContainer = styled.div`
   border: 4px solide;
   border-color: #000;
   justify-content: space-between;
-  margin: 50px 50px;
+  margin: ${({ padding }) => (padding ? "25px 0%" : "25px 5%")};
   margin-bottom: 20px;
-  padding: 20px 100px;
+  padding: ${({ padding }) => (padding ? "25px 0" : "25px 5%")};
   border-top: 2px solid rgba(175, 175, 175, 0.3);
   border-bottom: 2px solid rgba(175, 175, 175, 0.3);
   display: flex;
+  flex-direction: ${({ direction }) => (direction ? direction : "row")};
 `;
 const LeftTopContainer = styled.div`
   display: flex;
@@ -31,7 +33,7 @@ const BottomContainer = styled.div`
 `;
 const ContentContainer = styled.div`
   width: 100px;
-  margin-left: 70px;
+  margin-left: ${({ m_left }) => (m_left ? "30px" : "70px")};
   display: flex;
   flex-direction: column;
   text-align: start;
@@ -73,14 +75,20 @@ const LogoContainer = styled.div`
   }
 `;
 function Footer() {
+  const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
+
   return (
     <FooterContainer>
-      <TopContainer>
+      <TopContainer
+        direction={isMobile ? "column" : null}
+        padding={isMobile ? 1 : null}
+        margin={isMobile ? 1 : null}
+      >
         <LogoContainer>
           <img src={ImageOfBrand} alt="logo" />
         </LogoContainer>
         <LeftTopContainer>
-          <ContentContainer>
+          <ContentContainer m_left={isMobile?1:null}>
             <Title>Support</Title>
             <FooterLink href="/faq">Help & FAQ</FooterLink>
             <FooterLink href="/contact">Contact Us</FooterLink>

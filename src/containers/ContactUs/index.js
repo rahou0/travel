@@ -14,7 +14,6 @@ const PageContainer = styled.div`
 const ComportmentContainer = styled.div`
   padding: ${({ padding }) => (padding ? "0 5%" : "0 15%")};
   background-color: #f1f4f8;
-
   padding-top: 35px;
   display: flex;
   align-items: center;

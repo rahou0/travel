@@ -19,7 +19,7 @@ const UperTrendingContainer = styled.div`
 `;
 const CardContainer = styled.div`
   display: flex;
-  padding: ${({ padding }) => (padding ? "0 1%" : "0 15%")};
+  padding: ${({ padding }) => (padding ? "0 10%" : "0 15%")};
   margin: 10px 20px;
   justify-content: space-between;
   padding-top: 15px;
@@ -93,7 +93,7 @@ function TrendingPage() {
       )}
       {isLoading && <WarningText>Loading ...</WarningText>}
       {!isTrandingPlacesEmpy && !isLoading && (
-        <CardContainer>
+        <CardContainer padding={isMobile ? 1 : null}>
           <Card
             placeId={1}
             title={"Djemila"}
