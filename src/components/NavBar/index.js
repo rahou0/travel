@@ -63,7 +63,6 @@ const LoginButton = styled.a`
   background-size: 200% 100%;
   background-position: right bottom;
   transition: all 0.5s ease-out;
-
   &:hover {
     background-position: left bottom;
     border: 3px solid #0066ff;

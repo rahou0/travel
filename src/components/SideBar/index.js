@@ -2,10 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import SubMenu from "./SubMenu";
 import { HiHome } from "react-icons/hi";
-import {
-  RiLoginBoxFill,
-  RiLogoutBoxFill,
-} from "react-icons/ri";
+import { RiLoginBoxFill, RiLogoutBoxFill } from "react-icons/ri";
 import { MdContacts } from "react-icons/md";
 import { SiAboutDotMe } from "react-icons/si";
 const SideBarContainer = styled.div`
@@ -15,22 +12,23 @@ const SideBarContainer = styled.div`
   flex-direction: column;
   background-color: #002967;
   text-align: center;
-  height: 90.4%;
+  min-height: 100%;
 `;
 const Data = [
   {
-    path: "/",
+    path: "/dashboard/",
     title: "Home",
     icon: <HiHome />,
   },
   {
-    path: "/users",
+    path: "/dashboard/users",
     title: "Users",
     icon: <RiLogoutBoxFill />,
   },
-  { path: "/add", title: "Add Places", icon: <SiAboutDotMe /> },
-  { path: "/settings", title: "Settings", icon: <MdContacts /> },
-  { path: "/logout", title: "logout", icon: <RiLoginBoxFill /> },
+  { path: "/dashboard/add", title: "Article", icon: <SiAboutDotMe /> },
+  { path: "/dashboard/account", title: "Account", icon: <MdContacts /> },
+  { path: "/dashboard/profile", title: "Profile", icon: <MdContacts /> },
+  { path: "/dashboard/logout", title: "logout", icon: <RiLoginBoxFill /> },
 ];
 export default function SideBar() {
   return (

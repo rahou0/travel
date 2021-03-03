@@ -26,7 +26,10 @@ function App() {
           <Route path="/contact/sent">
             <SentMessagePage />
           </Route>
-          <Route path="/dashboard">
+          <Route path="/dashboard/:page">
+            <Dashboard />
+          </Route>
+          <Route path="/dashboard/">
             <Dashboard />
           </Route>
           <Route path="/test">
