@@ -6,6 +6,7 @@ import { deviceSize } from "../../components/responsive";
 import Carousel from "../../components/Carousel";
 import LikeIcon from "../../images/like.svg";
 import { RiShareLine } from "react-icons/ri";
+import { MdVisibility } from "react-icons/md";
 const PageContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
@@ -15,15 +16,16 @@ const PageContainer = styled.div`
 const PresentationContainer = styled.div`
   max-width: 100%;
   max-height: 100%;
-  padding: 20px 80px;
+  padding: ${({ padding }) => (padding ? "20px 0%" : "20px 8%")};
   padding-top: 130px;
   display: flex;
+  justify-content: center;
   background-color: #f1f4f8;
 `;
 const CardContainer = styled.div`
   height: 100%;
-  min-width: 80%;
-  max-width: 80%;
+  min-width: 90%;
+  max-width: 90%;
   border-radius: 5px;
   background-color: #fff;
   border: 1.5px solid #e0e0e0;
@@ -34,31 +36,35 @@ const CardContainer = styled.div`
 `;
 
 const ProfilContainer = styled.div`
-  height: 100%;
-  width: 20%;
   display: flex;
-  flex-direction: column;
 `;
 
 const Title = styled.h2`
   color: #000;
-  width: 100%;
-  padding: 0 30px;
+  max-width: 100%;
+  padding: ${({ padding }) => (padding ? "0 10px" : "0 30px")};
+  flex-wrap: wrap;
 `;
 const PlaceDescriptionContainer = styled.div`
   max-width: 100%;
   justify-content: space-between;
-  padding: 15px 30px;
+  padding: 15px 10px;
   display: flex;
-  align-items: center;
+  flex-direction: ${({ direction }) => (direction ? "column" : "row")};
+  align-items: ${({ align }) => (align ? "flex-start" : "center")};
 `;
 const SubTitileContainer = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const SubTitle = styled.a`
   color: ${({ color }) => (color ? "#" + color : "000")};
   font-size: 16px;
   font-weight: ${({ weight }) => (weight ? weight : "700")};
+  &:hover {
+    color: #000;
+  }
 `;
 const Text = styled.a`
   color: #000;
@@ -81,6 +87,7 @@ const Separator = styled.h2`
 const SocialMediaContainer = styled.h2`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 0;
   padding: 0;
 `;
@@ -101,7 +108,47 @@ const ShareButton = styled(RiShareLine)`
     color: #0066ff;
   }
 `;
+const ProfileLink = styled.a`
+  color: #008329;
+  font-size: 13px;
+  text-align: justify;
+  text-justify: inter-word;
+  font-weight: 700;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const IconProfile = styled.div`
+  height: 50px;
+  width: 50px;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+`;
+const VisibiltyIcon = styled(MdVisibility)`
+  width: 15px;
+  cursor: pointer;
+  height: 15px;
+  color: #008329;
+`;
+const ViewrProfileContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const AdressContainer = styled.div`
+  display: flex;
+  flex-direction: ${({ direction }) => (direction ? "column" : "row")};
+  width: 65%;
+  justify-content: space-between;
+`;
 function ContentPage() {
+  const isTablet = useMediaQuery({ maxWidth: deviceSize.tablet });
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
   const [isliked, setLike] = useState(false);
   const Data = [
@@ -146,30 +193,52 @@ function ContentPage() {
   ];
   return (
     <PageContainer>
-      <PresentationContainer>
+      <PresentationContainer padding={isTablet}>
         <CardContainer>
           <Title>10 Best Places to Visit in Algeria</Title>
           <Separator></Separator>
-          <PlaceDescriptionContainer>
-            <SubTitileContainer>
-              <SubTitle weight={400}>Location: </SubTitle>
-              <Marginer direction="horizontal" margin={5} />
-              <SubTitle color={"808080"}>Setif, Algeria</SubTitle>
-            </SubTitileContainer>
-            <SubTitileContainer>
-              <SubTitle weight={400}>Coordinates : </SubTitle>
-              <Marginer direction="horizontal" margin={5} />
-              <SubTitle color={"808080"}>36.1898</SubTitle>
-              <SubTitle weight={400}>° N, </SubTitle>
-              <Marginer direction="horizontal" margin={5} />
-              <SubTitle color={"808080"}>5.4108</SubTitle>
-              <SubTitle weight={400}>° E</SubTitle>
-            </SubTitileContainer>
-            <SocialMediaContainer>
-              <LikeContainer>
-                <img alt="like" src={LikeIcon} />
-              </LikeContainer>
+          <PlaceDescriptionContainer align={isTablet} direction={isMobile}>
+            <ProfilContainer>
+              <IconProfile>
+                <img src={Data[0]} alt="profile pic" />
+              </IconProfile>
               <Marginer direction="horizontal" margin={10} />
+              <ProfileInfo>
+                <SubTitle>Abderahim Hamani</SubTitle>
+                <ViewrProfileContainer>
+                  <VisibiltyIcon />
+                  <Marginer
+                    direction={isTablet ? "vertical" : "horizontal"}
+                    margin={1}
+                  />
+                  <ProfileLink>View Profile</ProfileLink>
+                </ViewrProfileContainer>
+                <ViewrProfileContainer>
+                  <SubTitle weight={400}>Date:&nbsp;</SubTitle>
+                  <SubTitle>20/12/2021</SubTitle>
+                </ViewrProfileContainer>
+              </ProfileInfo>
+            </ProfilContainer>
+            {isTablet && <Marginer direction="vertical" margin={10} />}
+            <AdressContainer direction={isTablet}>
+              <SubTitileContainer>
+                <SubTitle weight={400}>Location: </SubTitle>
+                <Marginer direction="horizontal" margin={5} />
+                <SubTitle color={"808080"}>Setif, Algeria</SubTitle>
+              </SubTitileContainer>
+              {isTablet && <Marginer direction="vertical" margin={10} />}
+              <SubTitileContainer>
+                <SubTitle weight={400}>Coordinates : </SubTitle>
+                <Marginer direction="horizontal" margin={5} />
+                <SubTitle color={"808080"}>36.1898</SubTitle>
+                <SubTitle weight={400}>° N, </SubTitle>
+                <Marginer direction="horizontal" margin={5} />
+                <SubTitle color={"808080"}>5.4108</SubTitle>
+                <SubTitle weight={400}>° E</SubTitle>
+              </SubTitileContainer>
+            </AdressContainer>
+            {isTablet && <Marginer direction="vertical" margin={10} />}
+            <SocialMediaContainer>
               <LikeContainer>
                 <img alt="like" src={LikeIcon} />
               </LikeContainer>
@@ -184,9 +253,6 @@ function ContentPage() {
             return <Text key={index}>{text}</Text>;
           })}
         </CardContainer>
-        <ProfilContainer>
-          <h1>Profile</h1>
-        </ProfilContainer>
       </PresentationContainer>
     </PageContainer>
   );

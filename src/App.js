@@ -9,6 +9,7 @@ import SentMessagePage from "./containers/SentMessagePage";
 import Footer from "./components/Footer";
 import SearchPage from "./containers/SearchPage";
 import ContentPage from "./containers/ContentPage";
+import TestPage from "./containers/TestPage";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/test">
+            <TestPage />
           </Route>
           <Route path="/search/:selector=:id">
             <SearchPage />
