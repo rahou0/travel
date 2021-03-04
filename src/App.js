@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import SearchPage from "./containers/SearchPage";
 import ContentPage from "./containers/ContentPage";
 import TestPage from "./containers/TestPage";
+import LoginPage from "./containers/LoginPage";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route path="/contact/sent">
             <SentMessagePage />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
           </Route>
           <Route path="/dashboard/:page">
             <Dashboard />

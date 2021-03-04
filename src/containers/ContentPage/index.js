@@ -103,6 +103,7 @@ const LikeContainer = styled.div`
 const ShareButton = styled(RiShareLine)`
   width: 35px;
   cursor: pointer;
+  color: ${({ color }) => (color ? "#0066ff" : "#000")};
   height: 35px;
   &:hover {
     color: #0066ff;
@@ -151,6 +152,9 @@ function ContentPage() {
   const isTablet = useMediaQuery({ maxWidth: deviceSize.tablet });
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
   const [isliked, setLike] = useState(false);
+  function handleLikeAction(e) {
+    setLike(!isliked);
+  }
   const Data = [
     "https://cdn.thecrazytourist.com/wp-content/uploads/2016/03/Algiers-Algeria-1024x683.jpg",
     "https://cdn.thecrazytourist.com/wp-content/uploads/2016/03/Ahaggar-National-Park-768x384.jpg",
@@ -243,7 +247,7 @@ function ContentPage() {
                 <img alt="like" src={LikeIcon} />
               </LikeContainer>
               <Marginer direction="horizontal" margin={10} />
-              <ShareButton />
+              <ShareButton onClick={handleLikeAction} color={isliked} />
             </SocialMediaContainer>
           </PlaceDescriptionContainer>
           <Separator></Separator>

@@ -13,7 +13,6 @@ const ButtonWrapper = styled(motion.div)`
   font-weight: ${({ weight }) => (weight ? weight : "500")};
   background-color: ${({ color }) => (color ? "#" + color : "#59ff52")};
   width: ${({ width }) => (width ? width : "100px")};
-
   box-shadow: ${({ shadow }) => (shadow ? shadow : "")};
   margin: ${({ margin }) => (margin ? margin : "px")};
   &:focus {

@@ -96,6 +96,12 @@ const Title = styled.h2`
 `;
 
 function NavBar() {
+  function goToLoginPage(e) {
+    window.location.href = `/login`;
+  }
+  function goToRegistrePage(e) {
+    window.location.href = `/registre`;
+  }
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
   const [activeLang, setActiveLang] = useState("en");
   const changeLanguage = (ln) => {
@@ -113,9 +119,9 @@ function NavBar() {
 
         {!isMobile && (
           <MiddleNavBarContainer>
-            <LoginButton>Login</LoginButton>
+            <LoginButton onClick={goToLoginPage}>Login</LoginButton>
             <Marginer direction="horizontal" margin={15} />
-            <RegistreButton>Registre</RegistreButton>
+            <RegistreButton onClick={goToRegistrePage}>Registre</RegistreButton>
           </MiddleNavBarContainer>
         )}
       </MenuContainer>

@@ -69,7 +69,6 @@ const InputContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
   }
-  padding: 20px 0px;
   input {
     font-size: 16px;
     font-weight: 500;
@@ -129,6 +128,16 @@ const SaveButton = styled.a`
     color: #0066ff;
   }
 `;
+const WarnignText = styled.span`
+  color: red;
+  font-size: 12px;
+  font-weight: 500;
+`;
+const WarningContainer = styled.div`
+  width: 100%;
+  text-align: end;
+  padding-bottom: 20px;
+`;
 const titleVariants = {
   hidden: { y: "30px", opacity: 0 },
   visible: { y: 0, opacity: 1 },
@@ -136,7 +145,10 @@ const titleVariants = {
 function ProfilePage() {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
   const isTablet = useMediaQuery({ maxWidth: deviceSize.tablet });
-
+  const [errors, setErrors] = useState({
+    fullname: { value: false, msg: "" },
+    location: { value: false, msg: "" },
+  });
   const [isHovred, setHovred] = useState(false);
   const [image, setImage] = useState("");
   const [isDisbled, setDisbled] = useState(true);
@@ -151,12 +163,26 @@ function ProfilePage() {
     setImagepath(URL.createObjectURL(e.target.files[0]));
     setImageName(e.target.files[0].name);
   };
+
+  function CheckInputs() {
+    if (fullname === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        fullname: { value: true, msg: "This Field is Empty" },
+      }));
+    }
+    if (location === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        location: { value: true, msg: "This Field is Empty" },
+      }));
+    }
+  }
   function handleClick(e) {
     if (!isDisbled) {
-      if (fullname !== "" && bio !== "" && location !== "")
-        setDisbled(!isDisbled);
-      else {
-      }
+      CheckInputs();
+      if (fullname !== "" && location !== "") setDisbled(!isDisbled);
+      //save and send post request
     } else {
       setDisbled(!isDisbled);
     }
@@ -188,22 +214,46 @@ function ProfilePage() {
             <label>FullName</label>
             <input
               value={fullname}
-              onChange={(e) => setFullname(e.target.value)}
+              onChange={(e) => {
+                setFullname(e.target.value);
+                setErrors((prevState) => ({
+                  ...prevState,
+                  fullname: { value: false, msg: "" },
+                }));
+              }}
               placeholder="Full Name"
               type="text"
               disabled={isDisbled}
             />
           </InputContainer>
+          <WarningContainer>
+            {errors.fullname.value && (
+              <WarnignText>{errors.fullname.msg}</WarnignText>
+            )}{" "}
+          </WarningContainer>
           <InputContainer direction={isMobile}>
             <label>Location</label>
             <input
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={(e) => {
+                setLocation(e.target.value);
+                setErrors((prevState) => ({
+                  ...prevState,
+                  location: { value: false, msg: "" },
+                }));
+              }}
               placeholder="Location"
               type="text"
               disabled={isDisbled}
             />
           </InputContainer>
+
+          <WarningContainer>
+            {errors.location.value && (
+              <WarnignText>{errors.location.msg}</WarnignText>
+            )}
+          </WarningContainer>
+
           <InputContainer direction={isMobile}>
             <label>Bio</label>
             <textarea

@@ -32,7 +32,6 @@ const InputContainer = styled.div`
     flex-direction: column;
     align-items: flex-start;
   }
-  padding: 20px 0px;
   input {
     font-size: 16px;
     font-weight: 500;
@@ -79,25 +78,99 @@ const SaveButton = styled.a`
     color: #0066ff;
   }
 `;
-
+const WarnignText = styled.span`
+  color: red;
+  font-size: 12px;
+  font-weight: 500;
+`;
+const WarningContainer = styled.div`
+  width: 100%;
+  text-align: end;
+  padding-bottom: 20px;
+`;
 function AccountPage() {
+  const [errors, setErrors] = useState({
+    email: { value: false, msg: "" },
+    password: { value: false, msg: "" },
+    newPassword: { value: false, msg: "" },
+    repeatedPassword: { value: false, msg: "" },
+  });
   const [isDisbled, setDisbled] = useState(true);
   const [email, setEmail] = useState("");
-  const [passowrd, setPassword] = useState("");
-  const [repeatedPassowrd, setReapetedPassword] = useState("");
-  const [newPassowrd, setNewPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatedPassword, setReapetedPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  function CheckInputs() {
+    if (password === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        password: { value: true, msg: "This Field is Empty" },
+      }));
+    } else {
+      if (password.length < 8)
+        setErrors((prevState) => ({
+          ...prevState,
+          password: { value: true, msg: "Password must be greater than 8!" },
+        }));
+    }
+    if (newPassword === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        newPassword: { value: true, msg: "This Field is Empty" },
+      }));
+    } else {
+      if (newPassword.length < 8)
+        setErrors((prevState) => ({
+          ...prevState,
+          newPassword: {
+            value: true,
+            msg: "Password must be greater than 8!",
+          },
+        }));
+    }
+    if (repeatedPassword === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        repeatedPassword: { value: true, msg: "This Field is Empty" },
+      }));}
+    if (newPassword !== repeatedPassword) {
+      setErrors((prevState) => ({
+        ...prevState,
+        newPassword: {
+          value: true,
+          msg: "Password does not match",
+        },
+        repeatedPassword: {
+          value: true,
+          msg: "Password does not match",
+        },
+      }));
+    }
+    if (email === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        email: { value: true, msg: "This Field is Empty" },
+      }));
+    } else {
+      if (!/.+@.+\.[A-Za-z]+$/.test(email))
+        setErrors((prevState) => ({
+          ...prevState,
+          email: { value: true, msg: "Email Invalid!" },
+        }));
+    }
+  }
   function handleClick(e) {
     if (!isDisbled) {
+      CheckInputs();
       if (
         email !== "" &&
-        passowrd !== "" &&
-        repeatedPassowrd !== "" &&
-        newPassowrd !== "" &&
-        newPassowrd === repeatedPassowrd
+        password !== "" &&
+        repeatedPassword !== "" &&
+        newPassword !== "" &&
+        newPassword === repeatedPassword
       )
         setDisbled(!isDisbled);
-      else {
-      }
+        //send request
     } else {
       setDisbled(!isDisbled);
     }
@@ -111,44 +184,88 @@ function AccountPage() {
             <label>Email</label>
             <input
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErrors((prevState) => ({
+                  ...prevState,
+                  email: { value: false, msg: "" },
+                }));
+              }}
               placeholder="rahim@rahim.com"
               type="text"
               disabled={isDisbled}
             />
           </InputContainer>
+          <WarningContainer>
+            {errors.email.value && (
+              <WarnignText>{errors.email.msg}</WarnignText>
+            )}
+          </WarningContainer>
           <InputContainer>
             <label>{isDisbled ? "Password: " : "Your password"}</label>
             <input
-              value={passowrd}
-              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrors((prevState) => ({
+                  ...prevState,
+                  password: { value: false, msg: "" },
+                }));
+              }}
               placeholder="*************"
               type="password"
               disabled={isDisbled}
             />
           </InputContainer>
+          <WarningContainer>
+            {errors.password.value && (
+              <WarnignText>{errors.password.msg}</WarnignText>
+            )}
+          </WarningContainer>
           {!isDisbled && (
             <InputContainer>
               <label>New password</label>
               <input
-                value={newPassowrd}
-                onChange={(e) => setNewPassword(e.target.value)}
+                value={newPassword}
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                  setErrors((prevState) => ({
+                    ...prevState,
+                    newPassword: { value: false, msg: "" },
+                  }));
+                }}
                 type="password"
                 disabled={isDisbled}
               />
             </InputContainer>
           )}
+          <WarningContainer>
+            {errors.newPassword.value && (
+              <WarnignText>{errors.newPassword.msg}</WarnignText>
+            )}
+          </WarningContainer>
           {!isDisbled && (
             <InputContainer>
               <label>Repeat password</label>
               <input
-                value={repeatedPassowrd}
-                onChange={(e) => setReapetedPassword(e.target.value)}
+                value={repeatedPassword}
+                onChange={(e) => {
+                  setReapetedPassword(e.target.value);
+                  setErrors((prevState) => ({
+                    ...prevState,
+                    repeatedPassword: { value: false, msg: "" },
+                  }));
+                }}
                 type="password"
                 disabled={isDisbled}
               />
             </InputContainer>
           )}
+          <WarningContainer>
+            {errors.repeatedPassword.value && (
+              <WarnignText>{errors.repeatedPassword.msg}</WarnignText>
+            )}
+          </WarningContainer>
           <ButtonsContainer>
             <SaveButton onClick={handleClick}>
               {isDisbled ? "Update" : "Save"}
