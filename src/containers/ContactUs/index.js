@@ -12,7 +12,7 @@ const PageContainer = styled.div`
   background-color: #f1f4f8;
 `;
 const ComportmentContainer = styled.div`
-  padding: ${({ padding }) => (padding ? "0 5%" : "0 15%")};
+  padding: ${({ padding }) => (padding ? "0 5%" : "0 10%")};
   background-color: #f1f4f8;
   padding-top: 35px;
   display: flex;
@@ -20,8 +20,8 @@ const ComportmentContainer = styled.div`
   justify-content: space-between;
 `;
 const StandOutImage = styled.div`
-  height: 400px;
-  width: 400px;
+  height: 40%;
+  width: 40%;
   img {
     width: 100%;
     height: 100%;
@@ -31,7 +31,7 @@ const ContactContainer = styled.div`
   display: flex;
   flex-direction: column;
   text-align: start;
-  width: ${({ width }) => (width ? "90%" : "400px")};
+  width: ${({ width }) => (width ? "90%" : "40%")};
 `;
 const ContactUsText = styled.h1`
   background-color: #f1f4f8;
@@ -87,14 +87,62 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-bottom: 20px;
 `;
+const WarnignText = styled.span`
+  color: red;
+  font-size: 12px;
+  font-weight: 500;
+`;
+const WarningContainer = styled.div`
+  width: 100%;
+  text-align: end;
+`;
 function ContactUs() {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
-
+  const isTablet = useMediaQuery({ maxWidth: deviceSize.tablet });
+  const [errors, setErrors] = useState({
+    email: { value: false, msg: "" },
+    msg: { value: false, msg: "" },
+    subject: { value: false, msg: "" },
+    name: { value: false, msg: "" },
+  });
   const [msg, setMsg] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
+  function CheckInputs() {
+    if (name === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        name: { value: true, msg: "This Field is Empty" },
+      }));
+    }
+    if (subject === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        subject: { value: true, msg: "This Field is Empty" },
+      }));
+    }
+    if (msg === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        msg: { value: true, msg: "This Field is Empty" },
+      }));
+    }
+    if (email === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        email: { value: true, msg: "This Field is Empty" },
+      }));
+    } else {
+      if (!/.+@.+\.[A-Za-z]+$/.test(email))
+        setErrors((prevState) => ({
+          ...prevState,
+          email: { value: true, msg: "Email Invalid!" },
+        }));
+    }
+  }
   function handleClick(e) {
+    CheckInputs();
     if (
       msg !== "" &&
       name !== "" &&
@@ -106,12 +154,9 @@ function ContactUs() {
   }
   return (
     <PageContainer>
-      <ComportmentContainer padding={isMobile ? 1 : null}>
-        <ContactContainer width={isMobile ? 1 : null}>
-          <ContactUsText
-            weight={isMobile ? 600 : 700}
-            size={isMobile ? 3 : 4.5}
-          >
+      <ComportmentContainer padding={isMobile}>
+        <ContactContainer width={isTablet}>
+          <ContactUsText weight={isMobile ? 600 : 700} size={isMobile ? 3 : 4}>
             Let's talk
           </ContactUsText>
           <TextFieldContainer>
@@ -119,33 +164,75 @@ function ContactUs() {
             <Marginer direction="vertical" margin={3} />
             <input
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                setErrors((prevState) => ({
+                  ...prevState,
+                  name: { value: false, msg: "" },
+                }));
+              }}
               id="fullname"
             ></input>
+            <WarningContainer>
+              {errors.name.value && (
+                <WarnignText>{errors.name.msg}</WarnignText>
+              )}{" "}
+            </WarningContainer>
             <label for="subject">Subject</label>
             <Marginer direction="vertical" margin={3} />
             <input
               value={subject}
-              onChange={(e) => setSubject(e.target.value)}
+              onChange={(e) => {
+                setSubject(e.target.value);
+                setErrors((prevState) => ({
+                  ...prevState,
+                  subject: { value: false, msg: "" },
+                }));
+              }}
               id="subject"
             ></input>
+            <WarningContainer>
+              {errors.subject.value && (
+                <WarnignText>{errors.subject.msg}</WarnignText>
+              )}{" "}
+            </WarningContainer>
             <Marginer direction="vertical" margin={10} />
             <label for="email">Email</label>
             <Marginer direction="vertical" margin={7} />
             <input
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErrors((prevState) => ({
+                  ...prevState,
+                  email: { value: false, msg: "" },
+                }));
+              }}
               id="email"
             ></input>
+            <WarningContainer>
+              {errors.email.value && (
+                <WarnignText>{errors.email.msg}</WarnignText>
+              )}{" "}
+            </WarningContainer>
             <Marginer direction="vertical" margin={10} />
             <label for="message">Message</label>
             <Marginer direction="vertical" margin={10} />
             <textarea
               value={msg}
-              onChange={(e) => setMsg(e.target.value)}
+              onChange={(e) => {
+                setMsg(e.target.value);
+                setErrors((prevState) => ({
+                  ...prevState,
+                  msg: { value: false, msg: "" },
+                }));
+              }}
               id="message"
               placeholder="type something..."
             ></textarea>
+            <WarningContainer>
+              {errors.msg.value && <WarnignText>{errors.msg.msg}</WarnignText>}{" "}
+            </WarningContainer>
             <Marginer direction="vertical" margin={20} />
             <ButtonContainer>
               <Button
@@ -160,7 +247,7 @@ function ContactUs() {
             </ButtonContainer>
           </TextFieldContainer>
         </ContactContainer>
-        {!isMobile && (
+        {!isTablet && (
           <StandOutImage>
             <img alt="contact us" src={ImageOfContact} />
           </StandOutImage>

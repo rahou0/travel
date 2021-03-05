@@ -60,11 +60,12 @@ function SentMessagePage() {
             <Marginer direction="vertical" margin={30} />
             <Marginer direction="vertical" margin={20} />
             <ButtonContainer>
-              <Link to="/">
+              <Link style={{ textDecoration: "none" }} to="/">
                 <Button
                   color={"0066FF"}
                   shadow={"0 4px 8px 0 rgba(0, 0, 0, 0.2)"}
-                  size={200}
+                  padding={"10px 10px"}
+                  width={"200"}
                 >
                   Back to Home Page
                 </Button>

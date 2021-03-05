@@ -11,6 +11,7 @@ import SearchPage from "./containers/SearchPage";
 import ContentPage from "./containers/ContentPage";
 import TestPage from "./containers/TestPage";
 import LoginPage from "./containers/LoginPage";
+import FaqPage from "./containers/FaqPage";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/login">
             <LoginPage />
+          </Route>
+          <Route path="/faq">
+            <FaqPage />
           </Route>
           <Route path="/dashboard/:page">
             <Dashboard />
