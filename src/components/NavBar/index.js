@@ -113,7 +113,7 @@ function NavBar() {
   return (
     <NavBarContainer>
       <MenuContainer padding={isMobile ? 30 : ""}>
-        <Title color={"0066ff"}> eramex </Title>
+        <Title color={"0066ff"}> Door-Dz </Title>
         {!isMobile && <NavLinks />}
         {isMobile && <MobileNavLinks />}
 
