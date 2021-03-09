@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { deviceSize } from "../../components/responsive";
+import axios from "axios";
 const PageContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
@@ -107,6 +108,7 @@ function LoginPage() {
   const [errors, setErrors] = useState({
     email: { value: false, msg: "" },
     password: { value: false, msg: "" },
+    request: { value: false, msg: "" },
   });
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -139,10 +141,39 @@ function LoginPage() {
   }
   function handleClick(e) {
     CheckInputs();
-    console.log(errors);
-
     if (password.length >= 8 && email !== "" && /.+@.+\.[A-Za-z]+$/.test(email))
-      window.location.href = `/dashboard`;
+      axios
+        .post(
+          "http://192.168.1.3:4000/login",
+          {
+            email:'dskshjk',
+            password,
+          },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": true,
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+          if (response.status()) {
+            localStorage.setItem("token", response.data);
+            window.location.href = `/dashboard`;
+          } else {
+            setErrors((prevState) => ({
+              ...prevState,
+              request: { value: true, msg: response.data },
+            }));
+          }
+        })
+        .catch(function (error) {
+          console.log(error.data);
+          setErrors((prevState) => ({
+            ...prevState,
+            request: { value: true, msg: error.data },
+          }));
+        });
   }
   return (
     <PageContainer>
@@ -199,7 +230,11 @@ function LoginPage() {
               )}
             </TextFieldContainer>
             <Marginer direction="vertical" margin={30} />
-
+            {errors.request.value && (
+              <WarningContainer>
+                <WarnignText>{errors.request.msg}</WarnignText>
+              </WarningContainer>
+            )}
             <Button
               onClick={handleClick}
               color={"0066FF"}

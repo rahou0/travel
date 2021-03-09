@@ -1,5 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import ButtonGoUp from "./components/ButtonGoUp";
 import NavBar from "./components/NavBar";
 import Dashboard from "./containers/Dashboard";
@@ -35,10 +40,18 @@ function App() {
             <FaqPage />
           </Route>
           <Route path="/dashboard/:page">
-            <Dashboard />
+            {localStorage.getItem("token") ? (
+              <Dashboard />
+            ) : (
+              <Redirect to="/login" />
+            )}
           </Route>
           <Route path="/dashboard/">
-            <Dashboard />
+            {localStorage.getItem("token") ? (
+              <Dashboard />
+            ) : (
+              <Redirect to="/login" />
+            )}
           </Route>
           <Route path="/test">
             <TestPage />
