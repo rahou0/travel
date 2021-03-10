@@ -89,12 +89,18 @@ const RegistreButton = styled.a`
 const Title = styled.h2`
   font-size: 25px;
   cursor: pointer;
-  color: white;
   font-weight: 700;
   color: ${({ color }) => (color ? "#" + color : "#fff")};
   padding-right: 20px;
 `;
-
+const InTitle = styled.span`
+  margin: 0;
+  padding: 0;
+  opacity: 0.7;
+  font-size: 25px;
+  font-weight: 700;
+  color: ${({ color }) => (color ? "#" + color : "#fff")};
+`;
 function NavBar() {
   function goToLoginPage(e) {
     window.location.href = `/login`;
@@ -113,7 +119,13 @@ function NavBar() {
   return (
     <NavBarContainer>
       <MenuContainer padding={isMobile ? 30 : ""}>
-        <Title color={"0066ff"}> Door-Dz </Title>
+        <Title>
+          <InTitle color={"0066ff"}>D</InTitle>
+          <InTitle color={"59FF52"}>oo</InTitle>
+          <InTitle color={"0066ff"}>r</InTitle>
+          <InTitle color={"59FF52"}>-</InTitle>
+          <InTitle color={"0066ff"}>Dz</InTitle>
+        </Title>
         {!isMobile && <NavLinks />}
         {isMobile && <MobileNavLinks />}
 

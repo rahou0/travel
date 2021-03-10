@@ -44,8 +44,8 @@ const LoginContainer = styled.div`
   padding: ${({ padding }) => (padding ? "0 0%" : "0 8%")};
   height: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
+  align-items: center;
   @media (max-width: 992px) {
     justify-content: start;
   }
@@ -97,10 +97,18 @@ const CardLogin = styled.div`
 `;
 const WarnignText = styled.span`
   color: red;
+  font-size: 12px;
+  font-weight: 500;
 `;
 const WarningContainer = styled.div`
   width: 100%;
   text-align: end;
+`;
+const WarningContainerLogin = styled.div`
+  width: 100%;
+  text-align: center;
+  padding-top: 12px;
+  padding-bottom: 5px;
 `;
 function LoginPage() {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
@@ -146,7 +154,7 @@ function LoginPage() {
         .post(
           "http://192.168.1.3:4000/login",
           {
-            email:'dskshjk',
+            email,
             password,
           },
           {
@@ -156,22 +164,13 @@ function LoginPage() {
           }
         )
         .then(function (response) {
-          console.log(response);
-          if (response.status()) {
-            localStorage.setItem("token", response.data);
-            window.location.href = `/dashboard`;
-          } else {
-            setErrors((prevState) => ({
-              ...prevState,
-              request: { value: true, msg: response.data },
-            }));
-          }
+          localStorage.setItem("token", response.data);
+          window.location.href = `/dashboard`;
         })
         .catch(function (error) {
-          console.log(error.data);
           setErrors((prevState) => ({
             ...prevState,
-            request: { value: true, msg: error.data },
+            request: { value: true, msg: error.response.data },
           }));
         });
   }
@@ -229,12 +228,11 @@ function LoginPage() {
                 </WarningContainer>
               )}
             </TextFieldContainer>
-            <Marginer direction="vertical" margin={30} />
-            {errors.request.value && (
-              <WarningContainer>
+            <WarningContainerLogin>
+              {errors.request.value && (
                 <WarnignText>{errors.request.msg}</WarnignText>
-              </WarningContainer>
-            )}
+              )}
+            </WarningContainerLogin>
             <Button
               onClick={handleClick}
               color={"0066FF"}
