@@ -18,6 +18,7 @@ import TestPage from "./containers/TestPage";
 import LoginPage from "./containers/LoginPage";
 import FaqPage from "./containers/FaqPage";
 import RegistrePage from "./containers/RegistrePage";
+import ContributePage from "./containers/ContributePage";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -38,10 +39,13 @@ function App() {
             <LoginPage />
           </Route>
           <Route path="/registre">
-            <RegistrePage/>
+            <RegistrePage />
           </Route>
           <Route path="/faq">
             <FaqPage />
+          </Route>
+          <Route path="/contribute">
+            <ContributePage />
           </Route>
           <Route path="/dashboard/:page">
             {localStorage.getItem("token") ? (

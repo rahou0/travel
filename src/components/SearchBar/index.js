@@ -82,7 +82,6 @@ function SearchBar(props) {
     else window.location.href = `/search/${option}=all`;
   }
   function handleQueryOtpion(e) {
-    console.log(e.target.value);
     setOption(e.target.value);
   }
   return (
