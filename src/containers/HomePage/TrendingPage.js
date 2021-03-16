@@ -57,6 +57,38 @@ const WarningText = styled.h3`
   color: grey;
   text-align: center;
 `;
+const Data = [
+  {
+    id: 1,
+    title: "Djemila",
+    address: "Setif, Algeria",
+  },
+  {
+    id: 2,
+    title: "Prince Abdel Kader Mosque",
+    address: "Constantine, Algeria",
+  },
+  {
+    id: 3,
+    title: "Fort Santa Cruz",
+    address: "Oran, Algeria",
+  },
+  {
+    id: 4,
+    title: "Kasbah of Algiers",
+    address: "Algiers, Algeria",
+  },
+  {
+    id: 5,
+    title: "Memorial du Martyr",
+    address: "Algiers, Algeria",
+  },
+  {
+    id: 6,
+    title: "Timgad",
+    address: "Batna, Algeria",
+  },
+];
 function TrendingPage() {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
 
@@ -94,69 +126,12 @@ function TrendingPage() {
       {isLoading && <WarningText>Loading ...</WarningText>}
       {!isTrandingPlacesEmpy && !isLoading && (
         <CardContainer padding={isMobile ? 1 : null}>
-          <Card
-            placeId={1}
-            title={"Djemila"}
-            titleColor={"fff"}
-            cardColor={"0066ff"}
-            buttonColor={"fff"}
-            textButtonColor={"000"}
-            iconcolor={"#fff"}
-            city={"Setif, Algeria"}
-          />
-          <Card
-            placeId={2}
-            title={"Prince Abdel Kader Mosque"}
-            titleColor={"0066ff"}
-            cardColor={"fff"}
-            buttonColor={"0066ff"}
-            textButtonColor={"fff"}
-            iconcolor={"#000"}
-            cityColor={"#000"}
-            city={"Constantine, Algeria"}
-          />
-          <Card
-            placeId={3}
-            title={"Fort Santa Cruz"}
-            titleColor={"fff"}
-            cardColor={"0066ff"}
-            buttonColor={"fff"}
-            textButtonColor={"000"}
-            iconcolor={"#fff"}
-            city={"Oran, Algeria"}
-          />
-          <Card
-            placeId={4}
-            title={"Kasbah of Algiers"}
-            titleColor={"0066ff"}
-            cardColor={"fff"}
-            buttonColor={"0066ff"}
-            textButtonColor={"fff"}
-            iconcolor={"#000"}
-            cityColor={"#000"}
-            city={"Algiers, Algeria"}
-          />
-          <Card
-            placeId={5}
-            title={"Memorial du Martyr"}
-            titleColor={"fff"}
-            cardColor={"0066ff"}
-            buttonColor={"fff"}
-            textButtonColor={"000"}
-            iconcolor={"#fff"}
-            city={"Algiers, Algeria"}
-          />
-          <Card
-            placeId={6}
-            title={"Timgad"}
-            titleColor={"0066ff"}
-            cardColor={"fff"}
-            buttonColor={"0066ff"}
-            textButtonColor={"fff"}
-            iconcolor={"#000"}
-            cityColor={"#000"}
-            city={"Batna, Algeria"}
-          />
+          {Data.map((data, index) => {
+            if(index%2===0)
+            return <Card key={index} data={data}/>;
+            else
+            return <Card key={index} data={data} v={1}/>;
+          })}
         </CardContainer>
       )}
 

@@ -63,6 +63,38 @@ const WarningText = styled.h3`
   color: grey;
   text-align: center;
 `;
+const Data = [
+  {
+    id: 1,
+    title: "Djemila",
+    address: "Setif, Algeria",
+  },
+  {
+    id: 2,
+    title: "Prince Abdel Kader Mosque",
+    address: "Constantine, Algeria",
+  },
+  {
+    id: 3,
+    title: "Fort Santa Cruz",
+    address: "Oran, Algeria",
+  },
+  {
+    id: 4,
+    title: "Kasbah of Algiers",
+    address: "Algiers, Algeria",
+  },
+  {
+    id: 5,
+    title: "Memorial du Martyr",
+    address: "Algiers, Algeria",
+  },
+  {
+    id: 6,
+    title: "Timgad",
+    address: "Batna, Algeria",
+  },
+];
 function SearchPage() {
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
 
@@ -111,37 +143,10 @@ function SearchPage() {
         {isLoading && <WarningText>Loading ...</WarningText>}
         {!isPlacesEmpty && !isLoading && (
           <CardContainer>
-            <Card
-              placeId={4}
-              title={"Kasbah of Algiers"}
-              titleColor={"fff"}
-              cardColor={"0066ff"}
-              buttonColor={"fff"}
-              textButtonColor={"000"}
-              iconcolor={"#fff"}
-              city={"Algiers, Algeria"}
-            />
-            <Card
-              placeId={5}
-              title={"Memorial du Martyr"}
-              titleColor={"0066ff"}
-              cardColor={"fff"}
-              buttonColor={"0066ff"}
-              textButtonColor={"fff"}
-              iconcolor={"#000"}
-              cityColor={"#000"}
-              city={"Algiers, Algeria"}
-            />
-            <Card
-              placeId={6}
-              title={"Palais of Rais"}
-              titleColor={"fff"}
-              cardColor={"0066ff"}
-              buttonColor={"fff"}
-              textButtonColor={"000"}
-              iconcolor={"#fff"}
-              city={"Algiers, Algeria"}
-            />
+            {Data.map((data, index) => {
+              if (index % 2 === 0) return <Card key={index} data={data} />;
+              else return <Card key={index} data={data} v={1} />;
+            })}
           </CardContainer>
         )}
       </MainContainer>

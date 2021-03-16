@@ -18,13 +18,13 @@ const CardPlace = styled.div`
   align-items: flex-start;
   min-height: 260px;
   flex-direction: column;
-  background-color: ${({ color }) => (color ? "#" + color : "#0066ff")};
+  background-color: ${({ v }) => (v ? "#fff" : "#0066ff")};
   &:hover {
     box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.2);
   }
 `;
 const CardTitle = styled.h5`
-  color: ${({ color }) => (color ? "#" + color : "#fff")};
+  color: ${({ v }) => (v ? "#0066ff" : "#fff")};
   letter-spacing: 0.7px;
   font-size: 16px;
   font-weight: 500px;
@@ -32,7 +32,7 @@ const CardTitle = styled.h5`
 const CardLocation = styled.a`
   font-size: 16px;
   font-weight: 500;
-  color: ${({ color }) => (color ? "#" + color : "#8dbbff")};
+  color: ${({ v }) => (v ? "#000" : "#8dbbff")};
   opacity: 0.8;
 `;
 const HrozantalDivider = styled.div`
@@ -53,48 +53,36 @@ const MiddleCardContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-function Card(props) {
-  const {
-    title,
-    city,
-    placeId,
-    titleColor,
-    cardColor,
-    cityColor,
-    iconcolor,
-    buttonColor,
-    textButtonColor,
-  } = props;
+function Card({ data, v }) {
   function handleClick(e) {
-    console.log(placeId);
-    window.location.href = `/place/${placeId}`;
+    window.location.href = `/place/${data.id}`;
   }
   return (
-    <CardPlace color={cardColor}>
+    <CardPlace v={v}>
       <UperCardContainer>
-        <CardTitle color={titleColor}>{title}</CardTitle>
+        <CardTitle v={v}>{data.title}</CardTitle>
         <Marginer direction="vertical" margin={5} />
         <HrozantalDivider />
       </UperCardContainer>
       <MiddleCardContainer>
         <TiLocationOutline
           style={{
-            color: iconcolor,
+            color: v ? "#000" : "#fff",
             width: 50,
             height: 50,
             opacity: 0.65,
           }}
         />
-        <CardLocation color={cityColor}>{city}</CardLocation>
+        <CardLocation v={v}>{data.address}</CardLocation>
       </MiddleCardContainer>
       <Button
         shadow={"0 2px 4px 0 rgba(0, 0, 0, 0.2)"}
         margin={"5px 3px"}
-        textColor={textButtonColor}
+        textColor={v ? "fff" : "000"}
         radius={"8"}
         width={"100%"}
         padding={"11px 0"}
-        color={buttonColor}
+        color={v ? "0066ff" : "fff"}
         onClick={handleClick}
       >
         See Now
