@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MenuToggle } from "./MenuToggle";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import AuthContainer from "./AuthContainer";
 const NavLinksContainer = styled.div`
   display: flex;
   align-items: center;
@@ -14,16 +15,16 @@ const LinkWrapper = styled.ul`
   list-style: none;
   padding: 0;
   display: flex;
-  background-color: #161922;
-  width: 100%;
+  background-color: #0066ff;
+  width: 75%;
   flex-direction: column;
   position: fixed;
-  top: 70px;
-  left: 0;
+  top: 75px;
+  right: 0;
 `;
 const LinkItem = styled.li`
   width: 100%;
-  border-bottom: 1px solid #727796;
+  border-bottom: 1px solid #fff;
   color: white;
   padding: 5px 0;
   height: 60px;
@@ -42,7 +43,7 @@ const LinkName = styled(Link)`
     display: block;
     width: 0;
     height: 2px;
-    background: #fdcd73;
+    background: #59ff52;
     transition: width 0.3s;
   }
   &:hover::after {
@@ -67,30 +68,43 @@ function MobileNavLinks() {
       {isOpen && (
         <LinkWrapper>
           <LinkItem>
-            <LinkName onClick={() => SetOpen(!isOpen)} to="/#">
+            <LinkName onClick={() => SetOpen(!isOpen)} to="/home">
               {t("home")}
             </LinkName>
           </LinkItem>
           <LinkItem>
-            <LinkName onClick={() => SetOpen(!isOpen)} to="/#about">
-              {t("about")}
+            <LinkName onClick={() => SetOpen(!isOpen)} to="/contribute">
+              {t("contribute")}
             </LinkName>
           </LinkItem>
           <LinkItem>
-            <LinkName onClick={() => SetOpen(!isOpen)} to="/#portfolio">
-              {t("portfolio")}
+            <LinkName onClick={() => SetOpen(!isOpen)} to="/faq">
+              {t("faq")}
             </LinkName>
           </LinkItem>
           <LinkItem>
-            <LinkName onClick={() => SetOpen(!isOpen)} to="/#blog">
-              {t("blog")}
-            </LinkName>
-          </LinkItem>
-          <LinkItem>
-            <LinkName onClick={() => SetOpen(!isOpen)} to="/#contact">
+            <LinkName onClick={() => SetOpen(!isOpen)} to="/contact">
               {t("contact")}
             </LinkName>
           </LinkItem>
+          {localStorage.getItem("token") ? (
+            <span>logid in</span>
+          ) : (
+            <LinkItem>
+              <LinkName onClick={() => SetOpen(!isOpen)} to="/login">
+                Login
+              </LinkName>
+            </LinkItem>
+          )}
+           {localStorage.getItem("token") ? (
+            <span>logid in</span>
+          ) : (
+            <LinkItem>
+              <LinkName onClick={() => SetOpen(!isOpen)} to="/registre">
+                Registre
+              </LinkName>
+            </LinkItem>
+          )}
         </LinkWrapper>
       )}
     </NavLinksContainer>

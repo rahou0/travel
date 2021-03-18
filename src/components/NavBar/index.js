@@ -5,7 +5,7 @@ import { deviceSize } from "../responsive";
 import NavLinks from "./NavLinks";
 import MobileNavLinks from "./MobileNavLinks";
 import i18n from "../../i18n";
-import { Marginer } from "../marginer";
+import AuthContainer from "./AuthContainer";
 const NavBarContainer = styled.div`
   width: 100vw;
   margin: 0;
@@ -26,66 +26,6 @@ const MenuContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-const MiddleNavBarContainer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 100%;
-`;
-const ItemNavBar = styled.a`
-  text-decoration: none;
-  font-size: 15px;
-  align-items: center;
-  justify-content: center;
-  color: ${({ color }) => (color ? "#" + color : "#000")};
-  margin-right: 20px;
-  cursor: pointer;
-  &::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #fdcd73;
-    transition: width 0.3s;
-  }
-  &:hover::after {
-    width: 100%;
-    filter: contrast(0.6);
-  }
-`;
-const LoginButton = styled.a`
-  padding: 7px 20px;
-  font-weight: 600;
-  font-size: 16px;
-  color: #fff;
-  border: 3px solid transparent;
-  cursor: pointer;
-  background: linear-gradient(to left, #0066ff 50%, transparent 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all 0.5s ease-out;
-  &:hover {
-    background-position: left bottom;
-    border: 3px solid #0066ff;
-    color: #0066ff;
-  }
-`;
-const RegistreButton = styled.a`
-  padding: 7px 20px;
-  font-weight: 600;
-  font-size: 16px;
-  color: #fff;
-  cursor: pointer;
-  border: 3px solid transparent;
-  background: linear-gradient(to left, #59ff52 50%, transparent 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all 0.5s ease-out;
-  * &:hover {
-    background-position: left bottom;
-    border: 3px solid #59ff52;
-    color: #59ff52;
-  }
-`;
 const Title = styled.h2`
   font-size: 25px;
   cursor: pointer;
@@ -102,12 +42,6 @@ const InTitle = styled.span`
   color: ${({ color }) => (color ? "#" + color : "#fff")};
 `;
 function NavBar() {
-  function goToLoginPage(e) {
-    window.location.href = `/login`;
-  }
-  function goToRegistrePage(e) {
-    window.location.href = `/registre`;
-  }
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
   const [activeLang, setActiveLang] = useState("en");
   const changeLanguage = (ln) => {
@@ -128,14 +62,7 @@ function NavBar() {
         </Title>
         {!isMobile && <NavLinks />}
         {isMobile && <MobileNavLinks />}
-
-        {!isMobile && (
-          <MiddleNavBarContainer>
-            <LoginButton onClick={goToLoginPage}>Login</LoginButton>
-            <Marginer direction="horizontal" margin={15} />
-            <RegistreButton onClick={goToRegistrePage}>Registre</RegistreButton>
-          </MiddleNavBarContainer>
-        )}
+        {!isMobile && <AuthContainer />}
       </MenuContainer>
     </NavBarContainer>
   );

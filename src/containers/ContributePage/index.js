@@ -33,6 +33,9 @@ const PageContainer = styled.div`
 `;
 const Text = styled.h1`
   font-size: ${({ size }) => (size ? size + "em" : "18px")};
+  @media (max-width: 992px) {
+    font-size: 30px;
+  }
   font-weight: ${({ weight }) => (weight ? weight : "400")};
   width: 400px;
   color: ${({ color }) => (color ? "#" + color : "#000")};
@@ -60,18 +63,14 @@ const CardContainer = styled.div`
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 1px 2px rgba(0, 0, 0, 0.23);
   flex-direction: column;
   display: flex;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 `;
 const InputField = styled(TextField)`
-  :focus {
-    color: red;
-  }
   width: ${({ width }) => (width ? "45%" : "100%")};
   height: 60px;
 `;
 const TextContainer = styled.div`
   width: 100%;
-  height: 500px;
 `;
 const Fieldset = styled.fieldset`
   display: flex;
@@ -287,7 +286,6 @@ function ContributePage() {
             </ButtonContainer>
             <Marginer direction="vertical" margin={10} />
             <div dangerouslySetInnerHTML={{ __html: html }} />
-            <Marginer direction="vertical" margin={40} />
           </CardContainer>
         </ContributeContainer>
       </MainContainer>

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ImageOfBrand from "../../ressources/disney.png";
+import ImageOfBrand from "../../ressources/logo.png";
 import { useMediaQuery } from "react-responsive";
 import { deviceSize } from "../responsive";
 const FooterContainer = styled.div`
@@ -16,13 +16,16 @@ const TopContainer = styled.div`
   border: 4px solide;
   border-color: #000;
   justify-content: space-between;
-  margin: ${({ padding }) => (padding ? "25px 0%" : "25px 5%")};
+  margin: ${({ padding }) => (padding ? "25px 1%" : "25px 5%")};
   margin-bottom: 20px;
   padding: ${({ padding }) => (padding ? "25px 0" : "25px 5%")};
   border-top: 2px solid rgba(175, 175, 175, 0.3);
   border-bottom: 2px solid rgba(175, 175, 175, 0.3);
   display: flex;
-  flex-direction: ${({ direction }) => (direction ? direction : "row")};
+  @media (max-width: 450px) {
+    flex-direction: column;
+  }
+  align-items: center;
 `;
 const LeftTopContainer = styled.div`
   display: flex;
@@ -49,7 +52,6 @@ const Title = styled.h2`
 `;
 const FooterLink = styled.a`
   text-decoration: none;
-
   color: #fff;
   opacity: 0.7;
   &:not(:last-of-type) {
@@ -62,13 +64,8 @@ const FooterLink = styled.a`
 `;
 const LogoContainer = styled.div`
   margin-top: 15px;
-  max-width: 200px;
-  padding: 0 50px;
-  margin-left: 50px;
-  border-right: 2px solid rgba(255, 255, 255, 0.2);
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  max-height: 150px;
+  width: 200px;
+  height: 150px;
   img {
     height: 100%;
     width: 100%;
@@ -88,7 +85,7 @@ function Footer() {
           <img src={ImageOfBrand} alt="logo" />
         </LogoContainer>
         <LeftTopContainer>
-          <ContentContainer m_left={isMobile?1:null}>
+          <ContentContainer m_left={isMobile ? 1 : null}>
             <Title>Support</Title>
             <FooterLink href="/faq">Help & FAQ</FooterLink>
             <FooterLink href="/contact">Contact Us</FooterLink>
