@@ -7,6 +7,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { deviceSize } from "../../components/responsive";
+import Loading from "../../components/Loading";
 const PageContainer = styled.div`
   width: 100vw;
   min-height: 130vh;
@@ -105,12 +106,12 @@ function SearchPage() {
   const fetchPlaces = async () => {
     setLoading(true);
     const response = await axios
-      .get("https://jsonplaceholder.typicode.com/todos/1")
+      .get(`http://134.122.68.39/search/?${selector}=${id}`)
       .catch((err) => {
         console.log("Error: ", err);
       });
-    await wait(3000);
     if (response) {
+      console.log(response.data);
       setPlaces(response.data);
     }
     setLoading(false);
@@ -118,20 +119,16 @@ function SearchPage() {
   useEffect(() => {
     fetchPlaces();
   }, []);
-  const wait = (num) => new Promise((rs) => setTimeout(rs, num));
   return (
     <PageContainer>
-      <TopContainer margin={isMobile ? 1 : null}>
-        <UpperContainer
-          padding={isMobile ? 1 : null}
-          height={isMobile ? 1 : null}
-        >
+      <TopContainer margin={isMobile}>
+        <UpperContainer padding={isMobile} height={isMobile}>
           <SearchBar id={id} selector={selector} />
         </UpperContainer>
       </TopContainer>
 
-      <MainContainer padding={isMobile ? 1 : null}>
-        <UperTrendingContainer padding={isMobile ? 1 : null}>
+      <MainContainer padding={isMobile}>
+        <UperTrendingContainer padding={isMobile}>
           <Title>Places</Title>
           <Marginer direction="vertical" margin={10} />
         </UperTrendingContainer>
@@ -140,7 +137,7 @@ function SearchPage() {
         {isPlacesEmpty && !isLoading && (
           <WarningText>No place at the moment</WarningText>
         )}
-        {isLoading && <WarningText>Loading ...</WarningText>}
+        {isLoading && <Loading />}
         {!isPlacesEmpty && !isLoading && (
           <CardContainer>
             {Data.map((data, index) => {

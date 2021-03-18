@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Marginer } from "../../components/marginer";
 import { useMediaQuery } from "react-responsive";
 import { deviceSize } from "../../components/responsive";
 import Carousel from "../../components/Carousel";
 import LikeIcon from "../../images/like.svg";
 import { RiShareLine } from "react-icons/ri";
+import axios from "axios";
 import { MdVisibility } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import Loading from "../../components/Loading";
+
 const PageContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
@@ -149,6 +153,29 @@ const AdressContainer = styled.div`
   justify-content: space-between;
 `;
 function ContentPage() {
+  let { id } = useParams();
+
+  const [isLoading, setLoading] = useState(false);
+  const [places, setPlaces] = useState([]);
+  const isPlacesEmpty = !places || (places && places.length === 0);
+  const fetchPlaces = async () => {
+    setLoading(true);
+    const response = await axios
+      .get(`http://134.122.68.39/place/${id}`)
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
+    
+    if (response) {
+      console.log(response.data);
+      setPlaces(response.data);
+    }
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchPlaces();
+  }, []);
+  const wait = (num) => new Promise((rs) => setTimeout(rs, num));
   const isTablet = useMediaQuery({ maxWidth: deviceSize.tablet });
   const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
   const [isliked, setLike] = useState(false);
@@ -198,65 +225,68 @@ function ContentPage() {
   return (
     <PageContainer>
       <PresentationContainer padding={isTablet}>
-        <CardContainer>
-          <Title>10 Best Places to Visit in Algeria</Title>
-          <Separator></Separator>
-          <PlaceDescriptionContainer align={isTablet} direction={isMobile}>
-            <ProfilContainer>
-              <IconProfile>
-                <img src={Data[0]} alt="profile pic" />
-              </IconProfile>
-              <Marginer direction="horizontal" margin={10} />
-              <ProfileInfo>
-                <SubTitle>Abderahim Hamani</SubTitle>
-                <ViewrProfileContainer>
-                  <VisibiltyIcon />
-                  <Marginer
-                    direction={isTablet ? "vertical" : "horizontal"}
-                    margin={1}
-                  />
-                  <ProfileLink>View Profile</ProfileLink>
-                </ViewrProfileContainer>
-                <ViewrProfileContainer>
-                  <SubTitle weight={400}>Date:&nbsp;</SubTitle>
-                  <SubTitle>20/12/2021</SubTitle>
-                </ViewrProfileContainer>
-              </ProfileInfo>
-            </ProfilContainer>
-            {isTablet && <Marginer direction="vertical" margin={10} />}
-            <AdressContainer direction={isTablet}>
-              <SubTitileContainer>
-                <SubTitle weight={400}>Location: </SubTitle>
-                <Marginer direction="horizontal" margin={5} />
-                <SubTitle color={"808080"}>Setif, Algeria</SubTitle>
-              </SubTitileContainer>
+        {isLoading && <Loading />}
+        {!isPlacesEmpty && !isLoading && (
+          <CardContainer>
+            <Title>10 Best Places to Visit in Algeria</Title>
+            <Separator></Separator>
+            <PlaceDescriptionContainer align={isTablet} direction={isMobile}>
+              <ProfilContainer>
+                <IconProfile>
+                  <img src={Data[0]} alt="profile pic" />
+                </IconProfile>
+                <Marginer direction="horizontal" margin={10} />
+                <ProfileInfo>
+                  <SubTitle>Abderahim Hamani</SubTitle>
+                  <ViewrProfileContainer>
+                    <VisibiltyIcon />
+                    <Marginer
+                      direction={isTablet ? "vertical" : "horizontal"}
+                      margin={1}
+                    />
+                    <ProfileLink>View Profile</ProfileLink>
+                  </ViewrProfileContainer>
+                  <ViewrProfileContainer>
+                    <SubTitle weight={400}>Date:&nbsp;</SubTitle>
+                    <SubTitle>20/12/2021</SubTitle>
+                  </ViewrProfileContainer>
+                </ProfileInfo>
+              </ProfilContainer>
               {isTablet && <Marginer direction="vertical" margin={10} />}
-              <SubTitileContainer>
-                <SubTitle weight={400}>Coordinates : </SubTitle>
-                <Marginer direction="horizontal" margin={5} />
-                <SubTitle color={"808080"}>36.1898</SubTitle>
-                <SubTitle weight={400}>° N, </SubTitle>
-                <Marginer direction="horizontal" margin={5} />
-                <SubTitle color={"808080"}>5.4108</SubTitle>
-                <SubTitle weight={400}>° E</SubTitle>
-              </SubTitileContainer>
-            </AdressContainer>
-            {isTablet && <Marginer direction="vertical" margin={10} />}
-            <SocialMediaContainer>
-              <LikeContainer>
-                <img alt="like" src={LikeIcon} />
-              </LikeContainer>
-              <Marginer direction="horizontal" margin={10} />
-              <ShareButton onClick={handleLikeAction} color={isliked} />
-            </SocialMediaContainer>
-          </PlaceDescriptionContainer>
-          <Separator></Separator>
-          <Carousel data={Data} />
-          <Separator></Separator>
-          {Article.map((text, index) => {
-            return <Text key={index}>{text}</Text>;
-          })}
-        </CardContainer>
+              <AdressContainer direction={isTablet}>
+                <SubTitileContainer>
+                  <SubTitle weight={400}>Location: </SubTitle>
+                  <Marginer direction="horizontal" margin={5} />
+                  <SubTitle color={"808080"}>Setif, Algeria</SubTitle>
+                </SubTitileContainer>
+                {isTablet && <Marginer direction="vertical" margin={10} />}
+                <SubTitileContainer>
+                  <SubTitle weight={400}>Coordinates : </SubTitle>
+                  <Marginer direction="horizontal" margin={5} />
+                  <SubTitle color={"808080"}>36.1898</SubTitle>
+                  <SubTitle weight={400}>° N, </SubTitle>
+                  <Marginer direction="horizontal" margin={5} />
+                  <SubTitle color={"808080"}>5.4108</SubTitle>
+                  <SubTitle weight={400}>° E</SubTitle>
+                </SubTitileContainer>
+              </AdressContainer>
+              {isTablet && <Marginer direction="vertical" margin={10} />}
+              <SocialMediaContainer>
+                <LikeContainer>
+                  <img alt="like" src={LikeIcon} />
+                </LikeContainer>
+                <Marginer direction="horizontal" margin={10} />
+                <ShareButton onClick={handleLikeAction} color={isliked} />
+              </SocialMediaContainer>
+            </PlaceDescriptionContainer>
+            <Separator></Separator>
+            <Carousel data={Data} />
+            <Separator></Separator>
+            {Article.map((text, index) => {
+              return <Text key={index}>{text}</Text>;
+            })}
+          </CardContainer>
+        )}
       </PresentationContainer>
     </PageContainer>
   );

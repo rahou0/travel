@@ -118,7 +118,6 @@ const WarningContainerRegistre = styled.div`
   padding-bottom: 5px;
 `;
 function RegistrePage() {
-  const isMobile = useMediaQuery({ maxWidth: deviceSize.mobile });
   const isTablet = useMediaQuery({ maxWidth: deviceSize.tablet });
   const [errors, setErrors] = useState({
     username: { value: false, msg: "" },
