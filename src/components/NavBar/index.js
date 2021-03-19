@@ -6,6 +6,7 @@ import NavLinks from "./NavLinks";
 import MobileNavLinks from "./MobileNavLinks";
 import i18n from "../../i18n";
 import AuthContainer from "./AuthContainer";
+import IconContainer from "./IconContainer";
 const NavBarContainer = styled.div`
   width: 100vw;
   margin: 0;
@@ -62,7 +63,8 @@ function NavBar() {
         </Title>
         {!isMobile && <NavLinks />}
         {isMobile && <MobileNavLinks />}
-        {!isMobile && <AuthContainer />}
+        {/* {!isMobile && <AuthContainer />} */}
+        {!isMobile && <IconContainer />}
       </MenuContainer>
     </NavBarContainer>
   );

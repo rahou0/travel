@@ -47,7 +47,7 @@ function App() {
           <Route path="/contribute">
             <ContributePage />
           </Route>
-          <Route path="/dashboard/:page">
+          {/* <Route path="/dashboard/:page">
             {localStorage.getItem("token") ? (
               <Dashboard />
             ) : (
@@ -63,7 +63,7 @@ function App() {
           </Route>
           <Route path="/test">
             <TestPage />
-          </Route>
+          </Route> */}
           <Route path="/search/:selector=:id">
             <SearchPage />
           </Route>

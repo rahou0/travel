@@ -4,6 +4,7 @@ import { MenuToggle } from "./MenuToggle";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import AuthContainer from "./AuthContainer";
+import MobileProfileContainer from "./MobileProfileContainer";
 const NavLinksContainer = styled.div`
   display: flex;
   align-items: center;
@@ -67,6 +68,14 @@ function MobileNavLinks() {
       <MenuToggle isOpen={isOpen} toggle={() => SetOpen(!isOpen)} />
       {isOpen && (
         <LinkWrapper>
+          {localStorage.getItem("token") && <MobileProfileContainer />}
+          {localStorage.getItem("token") && (
+            <LinkItem>
+              <LinkName onClick={() => SetOpen(!isOpen)} to="/dashboard">
+                Dashboard
+              </LinkName>
+            </LinkItem>
+          )}
           <LinkItem>
             <LinkName onClick={() => SetOpen(!isOpen)} to="/home">
               {t("home")}
@@ -87,17 +96,19 @@ function MobileNavLinks() {
               {t("contact")}
             </LinkName>
           </LinkItem>
-          {localStorage.getItem("token") ? (
-            <span>logid in</span>
-          ) : (
+          {!localStorage.getItem("token") && (
             <LinkItem>
               <LinkName onClick={() => SetOpen(!isOpen)} to="/login">
                 Login
               </LinkName>
             </LinkItem>
           )}
-           {localStorage.getItem("token") ? (
-            <span>logid in</span>
+          {localStorage.getItem("token") ? (
+            <LinkItem>
+              <LinkName onClick={() => SetOpen(!isOpen)} to="/logout">
+                Logout
+              </LinkName>
+            </LinkItem>
           ) : (
             <LinkItem>
               <LinkName onClick={() => SetOpen(!isOpen)} to="/registre">
