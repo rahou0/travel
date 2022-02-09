@@ -19,6 +19,7 @@ import LoginPage from "./containers/LoginPage";
 import FaqPage from "./containers/FaqPage";
 import RegistrePage from "./containers/RegistrePage";
 import ContributePage from "./containers/ContributePage";
+import XthreeDom from "./containers/xthreeDom";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -69,6 +70,9 @@ function App() {
           </Route>
           <Route path="/place/:id">
             <ContentPage />
+          </Route>
+          <Route path="/x3dom">
+            <XthreeDom />
           </Route>
           <Route path="/">
             <HomePage />
